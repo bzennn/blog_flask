@@ -11,10 +11,13 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     pwd_hash = db.Column(db.String(100))
     nickname = db.Column(db.String(64), index=True, unique=True)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
     about_me = db.Column(db.Text)
-    last_seen = db.Column(db.DateTime)
+    registered_on = db.Column(db.DateTime)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
+    ban_status = db.Column(db.Boolean, default=False)
 
     def set_password(self, password):
         self.pwd_hash = generate_password_hash(password)
@@ -25,7 +28,10 @@ class User(UserMixin, db.Model):
     def set_role(self, role):
         self.role = role
 
-    def __init__(self, nickname, email, password):
+    def __init__(self, nickname, email, password, first_name, last_name, registered_on):
+        self.registered_on = registered_on
+        self.first_name = first_name
+        self.last_name = last_name
         self.nickname = nickname
         self.email = email
         self.set_password(password)

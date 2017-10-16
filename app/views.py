@@ -1,6 +1,7 @@
-from flask import render_template, redirect, url_for, flash, session, request, g
+from flask import render_template, redirect, url_for, flash, session, request, g, abort
 from flask_login import login_user, logout_user, current_user, login_required
-from .forms import LoginForm, RegisterForm
+from datetime import datetime
+from .forms import LoginForm, RegisterForm, EditProfileForm
 from .models import User, Post
 from app import app, db, login_manager
 from config import ROLE_USER
@@ -15,7 +16,6 @@ def not_found_error(error):
 def internal_server_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
-
 
 @app.route('/')
 def index():
@@ -60,7 +60,8 @@ def create_user():
         return redirect(url_for('index'))
     form = RegisterForm()
     if form.validate_on_submit():
-        new_user = User(form.nickname.data, form.email.data, form.password.data)
+        new_user = User(form.nickname.data, form.email.data, form.password.data,
+                        form.firstName.data, form.lastName.data, datetime.utcnow())
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
@@ -69,18 +70,26 @@ def create_user():
                            form=form)
 
 
-@app.route('/user/<nickname>')
+@app.route('/user/<nickname>', methods=['GET', 'POST'])
 @login_required
 def user_profile(nickname):
     global_role = ROLE_USER
     user = User.query.filter_by(nickname=nickname).first()
-    user_role = user.role
+
+    form = EditProfileForm()
     if user is None:
-        flash('User ' + nickname + ' not found.')
-        return redirect(url_for('index'))
+        return abort(404)
+    else:
+        user_role = user.role
+
+    if form.validate_on_submit():
+        user.set_password(form.new_password)
+        return redirect(url_for(user_profile(user.nickname)))
+
     title = nickname
     return render_template('user_profile.html',
                            user=user,
                            global_role=global_role,
                            user_role=user_role,
-                           title=title)
+                           title=title,
+                           form=form)

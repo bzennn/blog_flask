@@ -2,19 +2,136 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if user_role == global_role['admin'] %}
-        <h1 style="color: greenyellow">Admin's Profile!</h1>
-    {% elif user_role == global_role['moderator'] %}
-        <h1 style="color: yellow">Moderator's profile</h1>
-    {% else %}
-        <h1 style="color: orange">User's profile</h1>
-    {% endif %}
-    <table>
-        <tr>
-            <td>User nickname: {{ title }}</td>
-        </tr>
-        <tr>
-            <td>User email: {{ user.email }}</td>
-        </tr>
-    </table>
+    <div class="container mt-4">
+        <!--{% if g.user.is_authenticated and user == g.user %}-->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="container-fluid card card-body mb-4">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <img src="../static/img/gallery-6.jpg" alt="" class="rounded-circle user-avatar-xl">
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="card-title mb-1">{{ user.first_name }} {{ user.last_name }}</h4>
+                            <h6 class="card-subtitle text-muted mb-2">@{{ user.nickname }}</h6>
+                            <p class="card-text text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+
+                </div> <!-- /.user-info -->
+
+                <div class="posts">
+                    <div class="card mb-4">
+                        <img class="card-img-top" src="../static/img/photo-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Post title</h4>
+                            <p class="card-text">
+                                Some quick example text to build on the card title and make up the bulk of the card's content.
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Read more</a>
+                        </div>
+                    </div> <!-- /.card -->
+
+                    <div class="card mb-4">
+
+                        <img class="card-img-top" src="../static/img/photo-1.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Post title</h4>
+                            <p class="card-text">
+                                Some quick example text to build on the card title and make up the bulk of the card's content.
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Read more</a>
+                        </div>
+                    </div> <!-- /.card -->
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">12</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav> <!-- /.pagination-->
+                </div> <!-- /.user-posts -->
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Admin's options</h4>
+                        <button class="btn btn-warning btn-block text-white font-weight-bold">Ban User</button>
+                        <button class="btn btn-danger btn-block text-white font-weight-bold">Delete User</button>
+                    </div>
+                </div> <!-- /.admin's options -->
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">User options</h4>
+                        <form method="post" name="login">
+                            {{ form.hidden_tag() }}
+                            <div class="password-options">
+                                <div class="form-group">
+                                    <label for="inputOldPassword">Password</label>
+
+                                    {% if form.old_password.errors %}
+                                    {{ form.old_password(class_="form-control is-invalid", placeholder="Old password", id="inputOldPassword") }}
+                                    <small class="form-text text-danger">Wrong password.</small>
+                                    {% else %}
+                                    {{ form.old_password(class_="form-control", placeholder="Old password", id="inputOldPassword") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="inputNewPassword">Password</label>
+
+                                        {% if form.new_password.errors %}
+                                        {{ form.new_password(class_="form-control is-invalid", placeholder="New password", id="inputNewPassword") }}
+                                        <small class="form-text text-danger">Wrong password.</small>
+                                        {% else %}
+                                        {{ form.new_password(class_="form-control", placeholder="New password", id="inputNewPassword") }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputRepeatNewPassword">Password</label>
+
+                                        {% if form.new_password_repeat.errors %}
+                                        {{ form.new_password_repeat(class_="form-control is-invalid", placeholder="Repeat new password", id="inputRepeatNewPassword") }}
+                                        <small class="form-text text-danger">Wrong password.</small>
+                                        {% else %}
+                                        {{ form.new_password_repeat(class_="form-control", placeholder="Repeat new password", id="inputRepeatNewPassword") }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- /.user-options -->
+            </div>
+        </div>
+
+
+
+        <!--{% else %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        2
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        {% endif %}-->
+    </div>
+
 {% endblock %}

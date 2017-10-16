@@ -1,32 +1,125 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>Bzennn's Blog</title>
-  </head>
-  <body>
-    <div>
-        <a href="/">Home</a>
-        {% if g.user.is_authenticated %}
-            | <a href="{{ url_for('user_profile', nickname = g.user.nickname) }}">{{ g.user.nickname }}'s Profile</a>
-            | <a href="{{ url_for('logout') }}">Logout</a>
-        {% else %}
-            | <a href="/login">Sign In</a>
-            | <a href="/signup">Sign Up</a>
-        {% endif %}
-    </div>
-    <hr>
-    <div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              <ul>
-                  {% for message in messages %}
-                      <li>{{message}} </li>
-                  {% endfor %}
-              </ul>
-        {% endif %}
-        {% endwith %}
-    </div>
-    {% block content %}{% endblock %}
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-social.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.css">
+
+    <title>Bzennn's blog</title>
+</head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/"><span class="logo">TechBlog</span></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacts</a>
+                        </li>
+
+                    </ul>
+
+                    <!--<form class="form-inline my-2 my-lg-0">-->
+                        <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                    <!--</form>-->
+
+                    <ul class="navbar-nav">
+
+                        {% if g.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('user_profile', nickname = g.user.nickname) }}">{{ g.user.nickname }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signup">Register</a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+
+                </div>
+            </div> <!-- /.container -->
+        </nav> <!-- /.navbar -->
+
+        <div>
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 order-lg-1 order-1">
+                        <h3>Bzennn's Tech Blog</h3>
+                        <p>
+                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 order-lg-2 order-2">
+                        <h3>Contacts</h3>
+                        <address>
+                            <b>Twitter inc.</b><br>
+                            Designed and built with all the love <br>
+                            in the world by @mdo and @fat. <br>
+                            Maintained by the core team with <br>
+                            the help of our contributors.<br>
+
+                            Currently v4.0.0-beta. Code licensed MIT,<br>
+                            docs CC BY 3.0.
+                        </address>
+                    </div>
+                    <div class="col-lg-4 col-md-6 order-lg-3 order-3">
+                        <h3>Social networks</h3>
+                        <nav class="nav">
+                            <a class="btn btn-social-icon btn-twitter" target="_blank" href="https://twitter.com/Bzennnn">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                            <a class="btn btn-social-icon btn-facebook" target="_blank" href="https://www.facebook.com/dima.klabukov">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                            <a class="btn btn-social-icon btn-vk" target="_blank" href="https://vk.com/dima_klabukov">
+                                <span class="fa fa-vk"></span>
+                            </a>
+                            <a class="btn btn-social-icon btn-github" target="_blank" href="https://github.com/bzennn/">
+                                <span class="fa fa-github"></span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </footer> <!-- /.footer -->
+
+        <div class="copyright">
+            <div class="container">
+                <span class="logo">TechBlog</span><br>
+                Dmitry Klabukov © 2017. All rights reserved.
+            </div>
+        </div>
+
+        <script src="../static/js/jquery-3.2.1.min.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <script src="../static/js/main.js"></script>
+    </body>
 </html>

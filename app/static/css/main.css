@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Passion+One');
+
+body {
+    background-color: #F5F5F5;
+    font-family: 'Lato', sans-serif;
+    /*background-color: #E0E0E0;*/
+}
+
+a {
+    color: #024a77;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0277BD;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    background-color: #0277BD;
+    /*border-bottom: 2px;
+    border-color: #0277BD;*/
+}
+
+.navbar {
+    padding: 0;
+}
+
+.header {
+    margin-top: 0;
+    height: 400px;
+
+    background: rgba(0, 0, 0, 0.5) url("../img/bg-2.jpg") no-repeat center;
+    background-size: cover;
+
+    color: #FFEE58;
+    text-align: center;
+}
+
+.pagination > li > a {
+    color: #000000;
+}
+
+.pagination > li > a:hover {
+    color: #000000;
+}
+
+.pagination > .active > a{
+    background-color: #0277BD !important;
+    border-color: #0277BD !important;
+}
+
+.list-group-item:hover {
+    background-color: #0277BD;
+    color: #ffffff;
+}
+
+.user-avatar-sm {
+    border: 1px #ffffff;
+    margin-right: .5rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.user-avatar-l {
+    border: 1px #ffffff;
+    margin-right: .5rem;
+    width: 4rem;
+    height: 4rem;
+}
+
+.user-avatar-xl {
+    border: 1px #ffffff;
+    margin-right: .5rem;
+    width: 6rem;
+    height: 6rem;
+}
+
+.block {
+    background: #FFEE58;
+    color: #000000;
+    /*box-shadow: 0 1px 2px rgba(0, 0, 0, .5);*/
+
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+.footer {
+    padding: 2rem 0;
+    background-color: #292b2c;
+    color: #ffffff;
+    margin-top: 3rem;
+}
+
+.footer-bottom-p {
+    padding-bottom: 8rem;
+}
+
+.footer a{
+    color: #ffffff;
+}
+
+.footer a:hover{
+    color: #ffffff;
+}
+
+.copyright {
+    padding: 1rem;
+    background-color: #0c0c0c;
+    color: darkgray;
+    text-align: center;
+}
+
+.btn:focus {
+    border: none;
+}
+
+.btn-social-icon {
+    margin-right: .5rem;
+}
+
+.logo {
+    font-family: 'Passion One', cursive;
+    font-size: 24px;
+    color: #FFEE58;
+}
+
+.header-logo {
+    font-family: 'Passion One', cursive;
+    color: #FFEE58;
+}
+
+
+
+

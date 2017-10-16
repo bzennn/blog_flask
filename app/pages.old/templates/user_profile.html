@@ -1,0 +1,20 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user_role == global_role['admin'] %}
+        <h1 style="color: greenyellow">Admin's Profile!</h1>
+    {% elif user_role == global_role['moderator'] %}
+        <h1 style="color: yellow">Moderator's profile</h1>
+    {% else %}
+        <h1 style="color: orange">User's profile</h1>
+    {% endif %}
+    <table>
+        <tr>
+            <td>User nickname: {{ title }}</td>
+        </tr>
+        <tr>
+            <td>User email: {{ user.email }}</td>
+        </tr>
+    </table>
+{% endblock %}
