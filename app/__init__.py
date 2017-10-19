@@ -2,18 +2,29 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
+from flask_uploads import UploadSet, IMAGES, configure_uploads, patch_request_class
+from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, UPLOADS_DEFAULT_DEST
 
 app = Flask(__name__)
 app.config.from_object('config')
 
+
+app.config['UPLOADS_DEFAULT_DEST'] = UPLOADS_DEFAULT_DEST
+images = UploadSet('images', IMAGES)
+configure_uploads(app, images)
+patch_request_class(app, 32 * 1024 * 1024)
+
+
 db = SQLAlchemy(app)
 
+
 migrate = Migrate(app, db)
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
 
 if not app.debug:
     import logging

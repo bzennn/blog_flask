@@ -1,0 +1,61 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="post" name="make-post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg"></div>
+                <div class="col-lg-10 card card-body">
+                    <div class="form-group">
+                        <label for="inputPostPicture">Post picture (2mb max)</label>
+
+                        {% if form.post_picture.errors %}
+                            {{ form.post_picture(class_="form-control-file is-invalid", id="inputPostPicture") }}
+                            <small class="form-text text-danger">Input required.</small>
+                        {% else %}
+                            {{ form.post_picture(class_="form-control-file input-group", id="inputPostPicture") }}
+                        {% endif %}
+                    </div> <!-- /.post-picture -->
+
+                    <div class="form-group">
+                        <label for="inputPostTitle">Post title (120 symbols max)</label>
+
+                        {% if form.post_title.errors %}
+                            {{ form.post_title(class_="form-control is-invalid", id="inputPostTitle", rows="2") }}
+                            <small class="form-text text-danger">Input required.</small>
+                        {% else %}
+                            {{ form.post_title(class_="form-control", id="inputPostTitle", rows="2") }}
+                        {% endif %}
+                    </div> <!-- /.post-title -->
+
+                    <div class="form-group">
+                        <label for="inputPostSubtitle">Post subtitle (240 symbols max)</label>
+
+                        {% if form.post_subtitle.errors %}
+                            {{ form.post_subtitle(class_="form-control is-invalid", id="inputPostSubtitle", rows="2") }}
+                            <small class="form-text text-danger">Input required.</small>
+                        {% else %}
+                            {{ form.post_subtitle(class_="form-control", id="inputPostSubtitle", rows="2") }}
+                        {% endif %}
+                    </div> <!-- /.post-subtitle -->
+
+                    <div class="form-group">
+                        <label for="inputPostContent">Post content</label>
+
+                        {% if form.post_content.errors %}
+                            {{ form.post_content(class_="form-control is-invalid", id="inputPostContent", rows="6") }}
+                            <small class="form-text text-danger">Input required.</small>
+                        {% else %}
+                            {{ form.post_content(class_="form-control", id="inputPostContent", rows="6") }}
+                        {% endif %}
+                    </div> <!-- /.post-content -->
+
+                    <button type="submit" class="btn btn-warning">Create</button>
+                </div>
+                <div class="col-lg"></div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

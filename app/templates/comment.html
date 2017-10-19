@@ -1,0 +1,22 @@
+<div class="card mb-4 comment">
+    <div class="card-body">
+        {% if g.user.nickname == comment.author.nickname %}
+            <form action="/delete_comment" method="post">
+                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                <button type="submit" class="btn btn-outline-primary btn-sm float-right" value="delete_comment">Delete comment</button>
+            </form>
+        {% endif %}
+
+        <p class="card-text">{{ comment.body }}</p>
+        <p class="card-text">
+            <small class="text-muted">
+                {{ comment.time_to_string(comment.timestamp) }}
+            </small>
+            <span class="float-right">
+                Author: <a href="{{ url_for('user_profile', nickname = comment.author.nickname) }}">@{{ comment.author.nickname }}</a>
+            </span>
+        </p>
+
+
+    </div>
+</div>

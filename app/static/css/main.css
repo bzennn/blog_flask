@@ -130,6 +130,14 @@ a:hover {
     color: #FFEE58;
 }
 
+.comment {
+    background-color: #F5F5F5;
+}
+
+.comment-area {
+    height: 4rem;
+}
+
 
 
 

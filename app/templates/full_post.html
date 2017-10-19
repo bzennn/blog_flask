@@ -1,0 +1,64 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="card mb-4">
+                    <img class="card-img-top post-img" src="{{ post.title_picture_url }}" alt="Title picture">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <p class="card-text">
+                            {{ post.sub_title }}
+                        </p>
+                        <p class="card-text">
+                            {{ post.body }}
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ post.time_to_string(post.timestamp) }}
+                                <i class="fa fa-comment ml-2"><span class="ml-1">{{ post.comments.all()|length }}</span></i>
+                            </small>
+                            <span class="float-right">
+                                Author: <a href="{{ url_for('user_profile', nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
+                            </span>
+                        </p>
+                    </div>
+                </div> <!-- /.post -->
+
+                <div class="card card-body mb-2">
+                    <form class="" method="post" name="make-post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                        <div class="form-group">
+
+                            {% if form.comment_content.errors %}
+                                {{ form.comment_content(class_="form-control is-invalid comment-area", id="inputCommentContent", placeholder="New comment") }}
+                                <small class="form-text text-danger">Input required.</small>
+                            {% else %}
+                                {{ form.comment_content(class_="form-control comment-area", id="inputCommentContent", placeholder="New comment") }}
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-warning float-right">Send</button>
+                    </form>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {% if not comments %}
+                            <h4 class="card-text text-center">No comments yet</h4>
+                        {% else %}
+                            {% for comment in comments %}
+                                {% include 'comment.html' %}
+                            {% endfor %}
+                        {% endif %}
+
+
+                    </div>
+                </div> <!-- /.comments -->
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+{% endblock %}
