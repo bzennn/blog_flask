@@ -2,41 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1a80369-cd78-4da3-96f0-de765fc27943" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-09-17_21-10-46_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-10-15_22-14-06.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-09-01_22-36-28_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/natural_cyan_illusion_cross.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-10-14_17-22-44.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/logo-2-sm.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-10-15_22-14-06_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-08-27_22-56-35_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/1489411470189746198_1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-10-14_17-22-55.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-10-13_22-37-30.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-09-18_19-32-38_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-10-14_17-22-44_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-09-01_22-36-28.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-08-27_22-56-35_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/images/Screenshot_from_2017-08-27_22-56-35_3.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/comment.html" afterPath="$PROJECT_DIR$/app/templates/comment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/post.html" afterPath="$PROJECT_DIR$/app/templates/post.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/make_post.html" afterPath="$PROJECT_DIR$/app/templates/make_post.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/main.css" afterPath="$PROJECT_DIR$/app/static/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/blog.log" afterPath="$PROJECT_DIR$/tmp/blog.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/app.db" afterPath="$PROJECT_DIR$/tmp/app.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/create_admin_user.py" afterPath="$PROJECT_DIR$/create_admin_user.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/base.html" afterPath="$PROJECT_DIR$/app/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/pagination.html" afterPath="$PROJECT_DIR$/app/templates/pagination.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms.py" afterPath="$PROJECT_DIR$/app/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/main.js" afterPath="$PROJECT_DIR$/app/static/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/full_post.html" afterPath="$PROJECT_DIR$/app/templates/full_post.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models.py" afterPath="$PROJECT_DIR$/app/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/user_profile.html" afterPath="$PROJECT_DIR$/app/templates/user_profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/index.html" afterPath="$PROJECT_DIR$/app/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,12 +26,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="38" column="18" lean-forward="false" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
-              <folding />
+            <state relative-caret-position="72">
+              <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+              <folding>
+                <element signature="e#24#57#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/app/static/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
-              <caret line="32" column="16" lean-forward="true" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+              <caret line="32" column="16" lean-forward="false" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -104,6 +73,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="206">
               <caret line="59" column="15" lean-forward="false" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="22" column="43" lean-forward="false" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -148,7 +127,6 @@
         <option value="$PROJECT_DIR$/app/templates/413.html" />
         <option value="$PROJECT_DIR$/app/templates/404.html" />
         <option value="$PROJECT_DIR$/app/templates/make_post.html" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/app/forms.py" />
         <option value="$PROJECT_DIR$/app/static/js/main.js" />
         <option value="$PROJECT_DIR$/app/templates/pagination.html" />
@@ -162,6 +140,7 @@
         <option value="$PROJECT_DIR$/app/templates/index.html" />
         <option value="$PROJECT_DIR$/create_admin_user.py" />
         <option value="$PROJECT_DIR$/app/models.py" />
+        <option value="$PROJECT_DIR$/config.py" />
       </list>
     </option>
   </component>
@@ -524,14 +503,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1044">
@@ -610,7 +581,7 @@
     <entry file="file://$PROJECT_DIR$/app/static/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
-          <caret line="32" column="16" lean-forward="true" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+          <caret line="32" column="16" lean-forward="false" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -651,8 +622,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="38" column="18" lean-forward="false" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
+        <state relative-caret-position="72">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding>
+            <element signature="e#24#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="43" lean-forward="false" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
           <folding />
         </state>
       </provider>

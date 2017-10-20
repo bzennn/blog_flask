@@ -2,7 +2,7 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
-from config import ROLE_USER, DEFAULT_AVATAR_URL
+from config import ROLE_USER
 
 
 class User(UserMixin, db.Model):
@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(64))
     about_me = db.Column(db.Text, default="", nullable=True)
     registered_on = db.Column(db.DateTime)
-    avatar_url = db.Column(db.String, default=DEFAULT_AVATAR_URL, nullable=True)
+    avatar_url = db.Column(db.String, nullable=True)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
     ban_status = db.Column(db.Boolean, default=False)
