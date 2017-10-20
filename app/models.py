@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     nickname = db.Column(db.String(64), index=True, unique=True)
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
-    about_me = db.Column(db.Text)
+    about_me = db.Column(db.Text, default="", nullable=True)
     registered_on = db.Column(db.DateTime)
     avatar_url = db.Column(db.String, default=DEFAULT_AVATAR_URL, nullable=True)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
@@ -31,6 +31,12 @@ class User(UserMixin, db.Model):
 
     def set_avatar_url(self, avatar_url):
         self.avatar_url = avatar_url
+
+    def set_about_me(self, about_me):
+        self.about_me = about_me
+
+    def set_email(self, email):
+        self.email = email
 
     def __init__(self, nickname, email, password, first_name, last_name, registered_on):
         self.registered_on = registered_on

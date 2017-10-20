@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileAllowed, FileRequired
+from flask_wtf.file import FileAllowed, FileRequired, FileField
 from flask import g
-from wtforms import StringField, PasswordField, BooleanField, TextAreaField, FileField
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField
 from wtforms.validators import InputRequired, email, EqualTo, length
 from .models import User
 from app import images
@@ -57,18 +57,18 @@ class RegisterForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
-    old_password = PasswordField("password", validators=[InputRequired(), length(min=1, max=100)])
-    new_password = PasswordField("password", validators=[InputRequired(), EqualTo('new_password_repeat',
+    old_password = PasswordField("password", validators=[length(min=1, max=100)])
+    new_password = PasswordField("password", validators=[EqualTo('new_password_repeat',
                                                                                   message='Passwords must match'),
                                                                                     length(min=1, max=100)])
-    new_password_repeat = PasswordField("password", validators=[InputRequired(), length(min=1, max=100)])
+    new_password_repeat = PasswordField("password", validators=[length(min=1, max=100)])
 
     def __init__(self, *args, **kwargs):
         FlaskForm.__init__(self, *args, **kwargs)
 
     def validate(self):
         if not FlaskForm.validate(self):
-            return False
+             return False
         user_obj = User.query.filter_by(nickname=g.user.nickname).first()
         if not user_obj.check_password(password=self.old_password.data):
             self.old_password.errors.append('Wrong password.')
@@ -77,7 +77,7 @@ class EditProfileForm(FlaskForm):
 
 
 class CreatePostForm(FlaskForm):
-    post_picture = FileField("post_picture", validators=[FileRequired()])#, validators=[FileRequired(), FileAllowed(images, 'Only images!')])
+    post_picture = FileField("post_picture", validators=[FileRequired(), FileAllowed(images)])
     post_title = TextAreaField("post_title", validators=[InputRequired()])
     post_subtitle = TextAreaField("post_subtitle", validators=[InputRequired()])
     post_content = TextAreaField("post_content", validators=[InputRequired()])
@@ -88,13 +88,6 @@ class CreatePostForm(FlaskForm):
 
 class CreateCommentForm(FlaskForm):
     comment_content = TextAreaField("comment_content", validators=[InputRequired()])
-
-    def __init__(self, *args, **kwargs):
-        FlaskForm.__init__(self, *args, **kwargs)
-
-
-class AddAvatarForm(FlaskForm):
-    avatar = FileField("avatar", validators=[FileRequired()])
 
     def __init__(self, *args, **kwargs):
         FlaskForm.__init__(self, *args, **kwargs)

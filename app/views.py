@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, session, request, g, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import datetime
-from .forms import LoginForm, RegisterForm, EditProfileForm, CreatePostForm, CreateCommentForm, AddAvatarForm
+from .forms import LoginForm, RegisterForm, EditProfileForm, CreatePostForm, CreateCommentForm
 from .models import User, Post, Comment
 from app import app, db, login_manager, images
 from config import ROLE_USER, POSTS_PER_PAGE
@@ -18,18 +18,28 @@ def internal_server_error(error):
     return render_template('500.html'), 500
 
 
+@app.errorhandler(413)
+def too_large_entity(error):
+    flash('Request file too large')
+    return render_template('413.html'), 413
+
+
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/p<int:page>', methods=['GET', 'POST'])
+@app.route('/p=<int:page>', methods=['GET', 'POST'])
 def index(page = 1):
     posts_obj = Post.query.order_by(Post.timestamp.desc())
     last_page = int(posts_obj.count() / POSTS_PER_PAGE + 1)
     if page > last_page:
         return abort(404)
     posts = posts_obj.paginate(page, POSTS_PER_PAGE, False)
+
+    users = db.session.query(User, db.func.count(Post.id)).join(Post).group_by(User.id).paginate(1, 5, False)
+
     return render_template('index.html',
                            posts=posts,
                            last_page=last_page,
-                           page=page)
+                           page=page,
+                           users=users)
 
 @login_manager.user_loader
 def load_user(id):
@@ -92,24 +102,13 @@ def user_profile(nickname, page = 1):
     posts = posts_obj.paginate(page, POSTS_PER_PAGE, False)
     last_page = int(posts_obj.count() / POSTS_PER_PAGE + 1)
 
-    form = EditProfileForm()
-    form_av = AddAvatarForm()
+    form = EditProfileForm(prefix='form')
 
     if page > last_page:
         return abort(404)
 
     if form.validate_on_submit():
-        if 'save_password' in request.form:
-            user.set_password(form.new_password.data)
-            db.session.add(user)
-            db.session.commit()
-        elif 'delete_post' in request.form:
-            redirect(url_for('index'))
-    elif form_av.validate_on_submit():
-        filename = images.save(request.files['avatar'])
-        url = images.url(filename)
-
-        user.set_avatar_url(url)
+        user.set_password(form.new_password.data)
         db.session.add(user)
         db.session.commit()
 
@@ -121,8 +120,7 @@ def user_profile(nickname, page = 1):
                            form=form,
                            posts=posts,
                            last_page=last_page,
-                           page=page,
-                           form_av=form_av)
+                           page=page)
 
 
 @app.route("/delete_post", methods=['POST'])
@@ -140,7 +138,42 @@ def delete_post():
     return redirect(url_for('user_profile', nickname=p.author.nickname))
 
 
-@app.route('/make-post', methods=['GET', 'POST'])
+@app.route("/upload_avatar", methods=['POST'])
+@login_required
+def upload_avatar():
+    nickname = request.form['user_nickname']
+    user = User.query.filter_by(nickname=nickname).first()
+
+    if g.user.nickname != nickname:
+        return abort(404)
+    else:
+        filename = images.save(request.files['avatar'])
+        url = images.url(filename)
+
+        user.set_avatar_url(url)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('user_profile', nickname=nickname))
+    return redirect(url_for('user_profile', nickname=nickname))
+
+
+@app.route("/upload_about_me", methods=['POST'])
+@login_required
+def upload_about_me():
+    nickname = request.form['user_nickname']
+    user = User.query.filter_by(nickname=nickname).first()
+
+    if g.user.nickname != nickname:
+        return abort(404)
+    else:
+        user.set_about_me(request.form['about_me'])
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('user_profile', nickname=nickname))
+    return redirect(url_for('user_profile', nickname=nickname))
+
+
+@app.route('/make_post', methods=['GET', 'POST'])
 @login_required
 def make_post():
 

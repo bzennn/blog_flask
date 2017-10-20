@@ -13,12 +13,7 @@
                         <div class="col-lg-10">
                             <h4 class="card-title mb-1">{{ user.first_name }} {{ user.last_name }}</h4>
                             <h6 class="card-subtitle text-muted mb-2">@{{ user.nickname }}</h6>
-                            <p class="card-text text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            {% if posts.items|length > 3 %}
-                                t
-                            {% else %}
-                                n
-                            {% endif %}
+                            <p class="card-text text text-muted">{{ user.about_me }}</p>
                         </div>
                     </div>
 
@@ -56,7 +51,7 @@
 
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">User options</h4>
+                        <h4 class="card-title">Password options</h4>
                         <form method="post" name="login">
                             {{ form.hidden_tag() }}
                             <div class="password-options">
@@ -93,9 +88,9 @@
                                         {% endif %}
                                     </div>
                                 </div>
-
-                                <button type="submit" class="btn btn-warning" value="save_password">Save</button>
                             </div>
+
+                            <button type="submit" class="btn btn-warning btn-block" name="save" value="save_password">Save</button>
                         </form>
                     </div>
                 </div> <!-- /.user-options -->
@@ -103,20 +98,31 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="card-title">Avatar options</h4>
-                        <form method="post" name="add_avatar">
-                        {{ form_av.hidden_tag() }}
+                        <form action="/upload_avatar" method="post" enctype="multipart/form-data" onSubmit="return validate();">
+                        {{ form.hidden_tag() }}
                             <div class="form-group">
-                                {% if form_av.avatar.errors %}
-                                    {{ form_av.avatar(class_="form-control is-invalid", placeholder="New avatar", id="inputAddAvatar") }}
-                                    <small class="form-text text-danger">Input required.</small>
-                                {% else %}
-                                    {{ form_av.avatar(class_="form-control", placeholder="New password", id="inputAddAvatar") }}
-                                {% endif %}
+                                <input type="hidden" name="user_nickname" value="{{ user.nickname }}">
+                                <input type="file" class="form-control-file file_upload" id="inputPicture" name="avatar">
+                                <small class="form-text text-danger file_upload_text"></small>
                             </div>
-                            <button type="submit" class="btn btn-warning" value="save_password">Save</button>
+                            <button type="submit" class="btn btn-warning btn-block" name="save" value="save_avatar">Save</button>
                         </form>
                     </div>
                 </div>
+                    
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">About me</h4>
+                        <form action="/upload_about_me" method="post">
+                        {{ form.hidden_tag() }}
+                            <div class="form-group">
+                                <input type="hidden" name="user_nickname" value="{{ user.nickname }}">
+                                <textarea class="form-control" name="about_me" rows="3" >{{ user.about_me }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-warning btn-block" name="save" value="save_about_me">Save</button>
+                        </form>
+                    </div>
+                </div>    
                 {% endif %}
 
                 {% if g.user.is_authenticated and g.user.role == global_role['admin'] %}

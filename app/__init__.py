@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_uploads import UploadSet, IMAGES, configure_uploads, patch_request_class
-from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, UPLOADS_DEFAULT_DEST
+from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, UPLOADS_DEFAULT_DEST, MAX_FILE_SIZE
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -12,7 +12,7 @@ app.config.from_object('config')
 app.config['UPLOADS_DEFAULT_DEST'] = UPLOADS_DEFAULT_DEST
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
-patch_request_class(app, 32 * 1024 * 1024)
+patch_request_class(app, MAX_FILE_SIZE)
 
 
 db = SQLAlchemy(app)

@@ -27,11 +27,11 @@
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="#footer">About</a>
                         </li>
-                        <li class="nav-item">
+                        {#<li class="nav-item">
                             <a class="nav-link" href="#">Contacts</a>
-                        </li>
+                        </li>#}
 
                     </ul>
 
@@ -43,11 +43,17 @@
                     <ul class="navbar-nav">
 
                         {% if g.user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('user_profile', nickname = g.user.nickname) }}">{{ g.user.nickname }}</a>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ url_for('user_profile', nickname = g.user.nickname) }}">
+
+                                    {{ g.user.nickname }}
+                                    <img class="rounded-circle user-avatar-xsm" src="{{ g.user.avatar_url }}" alt="">
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                <a class="nav-link" href="{{ url_for('logout') }}">
+                                    <span class="fa fa-sign-out"></span>
+                                </a>
                             </li>
                         {% else %}
                             <li class="nav-item">
@@ -64,30 +70,41 @@
             </div> <!-- /.container -->
         </nav> <!-- /.navbar -->
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="container mt-4">
+                        <div class="card card-body bg-success text-center text-light">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div>
             {% block content %}{% endblock %}
         </div>
 
-        <footer class="footer">
+        <footer class="footer" id="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 order-lg-1 order-1">
                         <h3>Bzennn's Tech Blog</h3>
                         <p>
-                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                            This is technical blog for peoples.
                         </p>
                     </div>
                     <div class="col-lg-4 col-md-6 order-lg-2 order-2">
                         <h3>Contacts</h3>
                         <address>
-                            <b>Twitter inc.</b><br>
-                            Designed and built with all the love <br>
-                            in the world by @mdo and @fat. <br>
-                            Maintained by the core team with <br>
-                            the help of our contributors.<br>
+                            <b>Bzennn's Tech blog.</b><br>
+                            Russian Federation, Kirov <br>
+                            Email: dima370794@gmail.com <br>
+                            Developed on <a class="text-primary" href="http://flask.pocoo.org/">Flask</a> framework<br>
+                            UI based on <a class="text-primary" href="http://getbootstrap.com/">Bootstrap 4.0.0</a> by Twitter inc.<br>
 
-                            Currently v4.0.0-beta. Code licensed MIT,<br>
-                            docs CC BY 3.0.
+                            Code licensed GPL v3<br>
                         </address>
                     </div>
                     <div class="col-lg-4 col-md-6 order-lg-3 order-3">

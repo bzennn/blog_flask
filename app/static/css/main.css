@@ -55,6 +55,13 @@ a:hover {
     color: #ffffff;
 }
 
+.user-avatar-xsm {
+    border: 1px #ffffff;
+    margin-left: .5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 .user-avatar-sm {
     border: 1px #ffffff;
     margin-right: .5rem;
@@ -136,6 +143,14 @@ a:hover {
 
 .comment-area {
     height: 4rem;
+}
+
+.text {
+    white-space: pre-line;
+}
+
+.z-index-for {
+    z-index: 2000;
 }
 
 
