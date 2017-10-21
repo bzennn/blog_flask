@@ -19,7 +19,6 @@ Mako==1.0.7
 MarkupSafe==1.0
 olefile==0.44
 pbr==3.1.1
-PIL==1.1.7
 pilkit==2.0
 Pillow==4.3.0
 pillowcase==2.0.0
