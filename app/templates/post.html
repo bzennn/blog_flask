@@ -18,7 +18,7 @@
         {% if request.endpoint == 'user_profile' %}
             <form action="/delete_post" method="post">
             {{ form.hidden_tag() }}
-                <a href="{{ url_for('post', post_id = post.id) }}" class="btn btn-outline-primary btn-sm">Read more</a>
+                <a href="{{ url_for('post', _external=True, post_id = post.id) }}" class="btn btn-outline-primary btn-sm">Read more</a>
 
                 {% if g.user.nickname == post.author.nickname %}
                     <input type="hidden" name="post_id", value="{{ post.id }}">
@@ -26,14 +26,14 @@
                 {% endif %}
 
                 <span class="float-right">
-                    Author: <a href="{{ url_for('user_profile', nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
+                    Author: <a href="{{ url_for('user_profile', _external=True, nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
                 </span>
             </form>
         {% else %}
-            <a href="{{ url_for('post', post_id = post.id) }}" class="btn btn-outline-primary btn-sm">Read more</a>
+            <a href="{{ url_for('post', _external=True, post_id = post.id) }}" class="btn btn-outline-primary btn-sm">Read more</a>
 
             <span class="float-right">
-                Author: <a href="{{ url_for('user_profile', nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
+                Author: <a href="{{ url_for('user_profile', _external=True, nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
             </span>
         {% endif %}
 

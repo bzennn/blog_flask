@@ -40,7 +40,7 @@
                                 </li>
                             {% else %}
                                 {% for user in users.items %}
-                                    <a href="{{ url_for('user_profile', nickname=user[0].nickname) }}">
+                                    <a href="{{ url_for('user_profile', nickname=user[0].nickname, _external=True) }}">
                                         <li class="list-group-item">
                                             <img class="rounded-circle user-avatar-sm" src="{{ user[0].avatar_url }}" alt="">
                                             @{{ user[0].nickname }}

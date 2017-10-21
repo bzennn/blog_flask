@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, session, request, g, abort
+from flask import render_template, redirect, url_for, flash, request, g, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import datetime
 from .forms import LoginForm, RegisterForm, EditProfileForm, CreatePostForm, CreateCommentForm
@@ -53,13 +53,13 @@ def before_request():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if g.user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('index', _external=True))
     form = LoginForm()
     next = request.args.get('next')
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user, form.remember_me.data)
-        return redirect(next or url_for('index'))
+        return redirect(next or url_for('index', _external=True))
     return render_template('login.html',
                            title='Sign In',
                            form=form)
@@ -69,20 +69,20 @@ def login():
 def logout():
     if g.user.is_authenticated:
         logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('index', _external=True))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def create_user():
     if g.user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('index', _external=True))
     form = RegisterForm()
     if form.validate_on_submit():
         new_user = User(form.nickname.data, form.email.data, form.password.data,
                         form.firstName.data, form.lastName.data, datetime.utcnow())
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('login'))
+        return redirect(url_for('login', _external=True))
     return render_template('register.html',
                            title='Sign Up',
                            form=form)
@@ -134,8 +134,8 @@ def delete_post():
     else:
         db.session.delete(p)
         db.session.commit()
-        return redirect(url_for('user_profile', nickname=p.author.nickname))
-    return redirect(url_for('user_profile', nickname=p.author.nickname))
+        return redirect(url_for('user_profile', nickname=p.author.nickname, _external=True))
+    return redirect(url_for('user_profile', nickname=p.author.nickname, _external=True))
 
 
 @app.route("/upload_avatar", methods=['POST'])
@@ -153,8 +153,8 @@ def upload_avatar():
         user.set_avatar_url(url)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('user_profile', nickname=nickname))
-    return redirect(url_for('user_profile', nickname=nickname))
+        return redirect(url_for('user_profile', nickname=nickname, _external=True))
+    return redirect(url_for('user_profile', nickname=nickname, _external=True))
 
 
 @app.route("/upload_about_me", methods=['POST'])
@@ -169,8 +169,8 @@ def upload_about_me():
         user.set_about_me(request.form['about_me'])
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('user_profile', nickname=nickname))
-    return redirect(url_for('user_profile', nickname=nickname))
+        return redirect(url_for('user_profile', nickname=nickname, _external=True))
+    return redirect(url_for('user_profile', nickname=nickname, _external=True))
 
 
 @app.route('/make_post', methods=['GET', 'POST'])
@@ -188,7 +188,7 @@ def make_post():
 
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('user_profile', nickname=g.user.nickname))
+        return redirect(url_for('user_profile', nickname=g.user.nickname, _external=True))
 
     return render_template('make_post.html',
                            form=form,
@@ -209,7 +209,7 @@ def post(post_id):
         comment = Comment(form.comment_content.data, datetime.utcnow(), post_id, g.user.id)
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('post', post_id=post_id))
+        return redirect(url_for('post', post_id=post_id, _external=True))
 
     return render_template('full_post.html',
                            post=post,
@@ -228,5 +228,5 @@ def delete_comment():
     else:
         db.session.delete(c)
         db.session.commit()
-        return redirect(url_for('post', post_id=c.post_id))
-    return redirect(url_for('post', post_id=c.post_id))
+        return redirect(url_for('post', post_id=c.post_id, _external=True))
+    return redirect(url_for('post', post_id=c.post_id, _external=True))

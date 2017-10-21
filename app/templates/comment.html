@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-lg-10">
                     <h5 class="card-title font-weight-bold">{{ comment.author.first_name }} {{ comment.author.last_name }}
-                        <a href="{{ url_for('user_profile', nickname = comment.author.nickname) }}" class="font-weight-normal text-muted">@{{ comment.author.nickname }}</a>
+                        <a href="{{ url_for('user_profile', _external=True, nickname = comment.author.nickname) }}" class="font-weight-normal text-muted">@{{ comment.author.nickname }}</a>
 
                     </h5>
                     <p class="card-text text    ">{{ comment.body }}</p>

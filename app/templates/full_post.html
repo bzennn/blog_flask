@@ -22,7 +22,7 @@
                                 <i class="fa fa-comment ml-2"><span class="ml-1">{{ post.comments.all()|length }}</span></i>
                             </small>
                             <span class="float-right">
-                                Author: <a href="{{ url_for('user_profile', nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
+                                Author: <a href="{{ url_for('user_profile', _external=True, nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
                             </span>
                         </p>
                     </div>

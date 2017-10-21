@@ -44,14 +44,14 @@
 
                         {% if g.user.is_authenticated %}
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ url_for('user_profile', nickname = g.user.nickname) }}">
+                                <a class="nav-link" href="{{ url_for('user_profile', _external=True, nickname = g.user.nickname) }}">
 
                                     {{ g.user.nickname }}
                                     <img class="rounded-circle user-avatar-xsm" src="{{ g.user.avatar_url }}" alt="">
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('logout') }}">
+                                <a class="nav-link" href="{{ url_for('logout', _external=True) }}">
                                     <span class="fa fa-sign-out"></span>
                                 </a>
                             </li>
