@@ -1,4 +1,5 @@
 import os
+#from flask import url_for
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 if os.environ.get('DATABASE_URL') is None:
@@ -20,6 +21,8 @@ MAIL_USERNAME = None
 MAIL_PASSWORD = None
 
 UPLOADS_DEFAULT_DEST = os.path.join(basedir, 'uploads/')
+
+DEFAULT_AVATAR_URL = 'https://bzennn.xyz/static/img/user.png'
 
 MAX_FILE_SIZE = 2 * 1024 * 1024
 
