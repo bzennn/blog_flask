@@ -68,6 +68,9 @@ class Post(db.Model):
         self.title_picture_url = title_picture_url
         self.user_id = user_id
 
+    def set_title_picture_url(self, title_picture_url):
+        self.title_picture_url = title_picture_url
+
     def time_to_string(self, timestamp):
         fmt = '%Y-%m-%d %H:%M'
         return timestamp.strftime(fmt)

@@ -7,6 +7,7 @@ from config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD,
 
 app = Flask(__name__)
 app.config.from_object('config')
+
 #app.config['PREFERRED_URL_SCHEME'] = 'http'
 #app.config['SERVER_NAME'] = '185.143.173.132'
 
