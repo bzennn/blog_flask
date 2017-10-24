@@ -13,9 +13,10 @@
                         <p class="card-text">
                             {{ post.sub_title|safe }}
                         </p>
-                        <p class="card-text">
+                        <div class="card-text text">
                             {{ post.body|safe }}
-                        </p>
+                        </div>
+
                         <p class="card-text">
                             <small class="text-muted">
                                 {{ post.time_to_string(post.timestamp) }}

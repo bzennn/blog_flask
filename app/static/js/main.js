@@ -12,7 +12,7 @@ if ($(document).height() <= $(window).height()) {
 }
 /* Sticky footer end */
 
-/* File size check */
+/* File size and ext check */
 function validate() {
     var file = $(".file_upload")[0].files[0];
     var fileExtension = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
@@ -32,4 +32,8 @@ function validate() {
 
 	return true;
 }
+/* File size and ext check end */
 
+/* Highlight.js load */
+hljs.initHighlightingOnLoad();
+/* Highlight.js load end */

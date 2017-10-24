@@ -1,16 +1,34 @@
 from flask import render_template, redirect, url_for, flash, request, g, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import datetime
+from flask_admin import AdminIndexView, Admin, expose
 from flask_admin.contrib.sqla import ModelView
 from .forms import LoginForm, RegisterForm, EditProfileForm, CreatePostForm, CreateCommentForm
 from .models import User, Post, Comment
-from app import app, db, login_manager, images, admin
+from app import app, db, login_manager, images
 from config import ROLE_USER, POSTS_PER_PAGE
 
+# Admin panel
 
+
+class CustomAdminIndexView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        if not g.user.is_authenticated:
+            return redirect(url_for('login'))
+        elif g.user.role != 2:
+            return abort(404)
+
+        return super(CustomAdminIndexView, self).index()
+
+
+admin = Admin(app, name="Admin panel", template_mode='bootstrap3', index_view=CustomAdminIndexView())
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Post, db.session))
 admin.add_view(ModelView(Comment, db.session))
+
+
+# Admin panel end
 
 
 @app.errorhandler(404)
@@ -31,7 +49,7 @@ def too_large_entity(error):
 
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/p=<int:page>', methods=['GET', 'POST'])
+@app.route('/p?<int:page>', methods=['GET', 'POST'])
 def index(page = 1):
     posts_obj = Post.query.order_by(Post.timestamp.desc())
     last_page = int(posts_obj.count() / POSTS_PER_PAGE + 1)
@@ -94,8 +112,8 @@ def create_user():
                            form=form)
 
 
-@app.route('/<nickname>', methods=['GET', 'POST'])
-@app.route('/<nickname>/p<int:page>', methods=['GET', 'POST'])
+@app.route('/user/<nickname>', methods=['GET', 'POST'])
+@app.route('/user/<nickname>?p<int:page>', methods=['GET', 'POST'])
 @login_required
 def user_profile(nickname, page = 1):
     global_role = ROLE_USER
@@ -201,7 +219,7 @@ def make_post():
                            user=g.user)
 
 
-@app.route('/post/n<post_id>', methods=['GET', 'POST'])
+@app.route('/post/n?<post_id>', methods=['GET', 'POST'])
 def post(post_id):
     post = Post.query.filter_by(id=post_id).first()
 
