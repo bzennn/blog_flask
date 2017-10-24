@@ -146,7 +146,7 @@ a:hover {
 }
 
 .text {
-    white-space: pre-line;
+    white-space: pre-wrap;
 }
 
 .z-index-for {

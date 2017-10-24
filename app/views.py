@@ -1,10 +1,16 @@
 from flask import render_template, redirect, url_for, flash, request, g, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import datetime
+from flask_admin.contrib.sqla import ModelView
 from .forms import LoginForm, RegisterForm, EditProfileForm, CreatePostForm, CreateCommentForm
 from .models import User, Post, Comment
-from app import app, db, login_manager, images
+from app import app, db, login_manager, images, admin
 from config import ROLE_USER, POSTS_PER_PAGE
+
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Post, db.session))
+admin.add_view(ModelView(Comment, db.session))
 
 
 @app.errorhandler(404)
