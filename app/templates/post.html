@@ -1,11 +1,16 @@
 <div class="card mb-4">
 
+    {% if post.title_picture_url is not none %}
     <img class="card-img-top post-img" src="{{ post.title_picture_url }}" alt="Title picture">
+    {% endif %}
     <div class="card-body">
         <h4 class="card-title font-weight-bold">{{ post.title }}</h4>
+
+        {% if post.sub_title is not none %}
         <p class="card-text text">
             {{ post.sub_title|safe }}
         </p>
+        {% endif %}
         <p class="card-text">
             <small class="text-muted">
                 {{ post.time_to_string(post.timestamp) }}

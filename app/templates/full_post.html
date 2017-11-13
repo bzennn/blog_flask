@@ -7,17 +7,16 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
                 <div class="card mb-4">
-                    <img class="card-img-top post-img" src="{{ post.title_picture_url }}" alt="Title picture">
+                    {#<img class="card-img-top post-img" src="{{ post.title_picture_url }}" alt="Title picture">#}
                     <div class="card-body">
-                        <h4 class="card-title font-weight-bold">{{ post.title }}</h4>
-                        <p class="card-text">
+                        <h4 class="card-title font-weight-bold text-center">{{ post.title }}</h4>
+                        <div class="card-text">
                             {{ post.sub_title|safe }}
-                        </p>
-                        <div class="card-text text">
-                            {{ post.body|safe }}
                         </div>
-
-                        <p class="card-text">
+                        <p class="card-text text">
+                            {{ post.body|safe }}
+                        </p>
+                        <div class="card-text">
                             <small class="text-muted">
                                 {{ post.time_to_string(post.timestamp) }}
                                 <i class="fa fa-comment ml-2"><span class="ml-1">{{ post.comments.all()|length }}</span></i>
@@ -25,7 +24,7 @@
                             <span class="float-right">
                                 Author: <a href="{{ url_for('user_profile', _external=True, nickname = post.author.nickname) }}">@{{ post.author.nickname }}</a>
                             </span>
-                        </p>
+                        </div>
                     </div>
                 </div> <!-- /.post -->
 
