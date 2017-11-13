@@ -1,11 +1,52 @@
-from flask import render_template, redirect, url_for, flash, request, g, abort
+import re
+from bs4 import BeautifulSoup
+from flask import render_template, redirect, url_for, flash, request, g, abort, Markup
 from flask_login import login_user, logout_user, current_user, login_required
 from datetime import datetime
+from flask_admin import AdminIndexView, Admin, expose
+from flask_admin.contrib.sqla import ModelView
 from .forms import LoginForm, RegisterForm, EditProfileForm, CreatePostForm, CreateCommentForm
 from .models import User, Post, Comment
 from app import app, db, login_manager, images
 from config import ROLE_USER, POSTS_PER_PAGE
 
+
+# Admin panel
+
+class CustomAdminIndexView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        if not g.user.is_authenticated:
+            return redirect(url_for('login'))
+        elif g.user.role != 2:
+            return abort(404)
+
+        return super(CustomAdminIndexView, self).index()
+
+
+admin = Admin(app, name="Admin panel", template_mode='bootstrap3', index_view=CustomAdminIndexView())
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Post, db.session))
+admin.add_view(ModelView(Comment, db.session))
+
+
+# Admin panel end
+
+# Jinja2 filters
+
+# @app.template_filter('safe_tags')
+# def safe_tags(s):
+#     s = Markup.escape(s)
+#
+#     for tag in TAGS:
+#
+#         s = s.replace(tag, Markup(tag))
+#     return s# regex = re.findall('<img src="[^"]+" alt="[^"]+">', s)
+
+
+# Jinja2 filters end
+
+# App views
 
 @app.errorhandler(404)
 def not_found_error(error):
@@ -25,8 +66,8 @@ def too_large_entity(error):
 
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/p=<int:page>', methods=['GET', 'POST'])
-def index(page = 1):
+@app.route('/p?<int:page>', methods=['GET', 'POST'])
+def index(page=1):
     posts_obj = Post.query.order_by(Post.timestamp.desc())
     last_page = int(posts_obj.count() / POSTS_PER_PAGE + 1)
     if page > last_page:
@@ -41,9 +82,11 @@ def index(page = 1):
                            page=page,
                            users=users)
 
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
+
 
 @app.before_request
 def before_request():
@@ -88,10 +131,10 @@ def create_user():
                            form=form)
 
 
-@app.route('/<nickname>', methods=['GET', 'POST'])
-@app.route('/<nickname>/p<int:page>', methods=['GET', 'POST'])
+@app.route('/user/<nickname>', methods=['GET', 'POST'])
+@app.route('/user/<nickname>?p<int:page>', methods=['GET', 'POST'])
 @login_required
-def user_profile(nickname, page = 1):
+def user_profile(nickname, page=1):
     global_role = ROLE_USER
     user = User.query.filter_by(nickname=nickname).first()
 
@@ -176,15 +219,19 @@ def upload_about_me():
 @app.route('/make_post', methods=['GET', 'POST'])
 @login_required
 def make_post():
-
     form = CreatePostForm()
     if g.user is None:
         return abort(404)
 
     if form.validate_on_submit():
-        filename = images.save(request.files['post_picture'])
-        url = images.url(filename)
-        post = Post(form.post_title.data, form.post_subtitle.data, form.post_content.data, datetime.utcnow(), url, g.user.id)
+        soup = BeautifulSoup(form.post_content.data, "html.parser")
+
+        try:
+            image = soup.img["src"]
+        except:
+            image = None
+
+        post = Post(form.post_title.data, form.post_subtitle.data, form.post_content.data, datetime.utcnow(), image, g.user.id)
 
         db.session.add(post)
         db.session.commit()
@@ -195,7 +242,7 @@ def make_post():
                            user=g.user)
 
 
-@app.route('/post/n<post_id>', methods=['GET', 'POST'])
+@app.route('/post/n?<post_id>', methods=['GET', 'POST'])
 def post(post_id):
     post = Post.query.filter_by(id=post_id).first()
 
@@ -230,3 +277,5 @@ def delete_comment():
         db.session.commit()
         return redirect(url_for('post', post_id=c.post_id, _external=True))
     return redirect(url_for('post', post_id=c.post_id, _external=True))
+
+# App views end
